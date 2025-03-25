@@ -38,6 +38,7 @@ void ft_map_calloc(t_game *game)
     }
 }
 
+/*pattern count*/
 void    ft_struct_map(char c, t_game *game, int y, int x)
 {
     if (ft_strchr(PATT_MAP, c) == NULL)
@@ -56,6 +57,29 @@ void    ft_struct_map(char c, t_game *game, int y, int x)
         game->position.y = y;
         game->position.x = x;
     }   
+}
+
+/*copy repo to fill*/
+void    ft_cpymap_tofill(t_game *game)
+{
+    int     i;
+
+    i = 0;
+    if (game->map.fill == NULL)
+    {
+        game->map.fill = (char **)ft_calloc(game->map.columns + 1, sizeof(char *));
+        if (!game->map.fill)
+            ft_error_map("failed to fill map up", game);
+        while (i < game->map.columns)
+        {
+            game->map.fill[i] = (char *)ft_calloc(game->map.rows + 1, sizeof(char));
+            if (!game->map.fill[i])
+                ft_error_map("failed to fill map up", game);
+            ft_strlcpy(game->map.fill[i], game->map.repo[i], game->map.rows + 1);
+            i++;
+        }
+        game->map.fill[i] = NULL;
+    }
 }
 
 

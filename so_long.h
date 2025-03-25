@@ -100,6 +100,8 @@ typedef struct s_game{
 void    ft_check_argument(int ac, char **av, t_game *game);
 void    ft_check_file(char *line);
 void    ft_check_map(t_game *game, char *line, int i_rows);
+void    ft_check_wall(int y, int x, t_game *game);
+void    ft_check_patt(t_game *game);
 
 /*error function*/
 void    ft_error(char *mess);

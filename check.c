@@ -60,8 +60,27 @@ void    ft_check_wall(int y, int x, t_game *game)
         ft_error_map("the walls do not enclose the map", game);
     if (game->map.columns - 1 >= 0)
     {
-        
+        if (game->map.repo[game->map.columns - 1][x] != '1')
+            ft_error_map("the wall do not enclose the map", game);
     }
+    if (game->map.rows - 1 >= 0)
+    {
+        if (game->map.repo[y][game->map.rows-1] != '1')
+            ft_error_map("the wall do not enclose the map", game);
+    }
+}
+
+/*pattern checking*/
+void    ft_check_patt(t_game *game)
+{
+    //if (!game->map.walls || game->map.walls < )
+    //    ft_error_map(" ", game);
+    if (game->map.collects < 1 || game->map.collects > 100)
+        ft_error_map("collecitbles must be between 1 and 100", game);
+    if (!game->map.player || game->map.player > 1)
+        ft_error_map("map requires only one a player", game);
+    if (!game->map.exits || game->map.exits > 1)
+        ft_error_map("map requires only one a exits");
 }
 
 

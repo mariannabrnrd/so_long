@@ -76,4 +76,7 @@ void    ft_init_layer(t_game *game)
         }
         y++;
     }
+    ft_check_patt(game);
+    ft_cpymap_tofill(game);
+    ft_flood_fill(game, game->map.fill, 'X');
 }
