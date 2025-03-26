@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_h"
+#include "so_long.h"
 
 /*free the repository*/
 void    ft_free_repo(char **repo)
@@ -28,19 +28,19 @@ void    ft_free_repo(char **repo)
     free(repo);
 }
 
-/*free the grid*/
-void    ft_free_grid(char **grid, int cols)
+/*free the fill*/
+void    ft_free_fill(char **fill, int cols)
 {
     char    **temp;
 
-    if(!grid || !*grid)
+    if(!fill || !*fill)
         ft_error("map not found");
-    temp = grid;
+    temp = fill;
     while (cols > 0 && *temp != NULL)
     {
         free(*temp);
         temp++;
         cols--;
     }
-    free(grid);
+    free(fill);
 }

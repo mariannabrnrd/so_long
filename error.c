@@ -10,23 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_h"
+#include "so_long.h"
 
+/*basic error*/
 void    ft_error(char *mess)
 {
     ft_printf("%s\n", mess);
     exit(1);
 }
 
+/*error for map*/
 void    ft_error_map(char *mess, t_game *game)
 {
-    int         i;
-    char        **temp;
-
-    i = 0;
-    ft_free_map(game->map.repo);
+    ft_free_repo(game->map.repo);
     if (game->map.fill)
-        ft_free_grid(game->map.grid, game->map.columns);
+        ft_free_fill(game->map.fill, game->map.columns);
     ft_error(mess);
     exit(1);
 }

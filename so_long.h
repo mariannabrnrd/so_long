@@ -52,6 +52,7 @@
 /*pattern*/
 # define PATT_MAP           "01EPC"
 # define PATT_FILL          "EPC"
+# define PATT_FLOOD_FILL    "1X"
 # define PATT_FLOOR         48 //ascii di 0
 # define PATT_WALL          49 //ascii di 1
 # define PATT_COLLECTS      67 //ascii di c
@@ -68,8 +69,8 @@
 } t_img;*/
 
 typedef struct s_map{
-    char        **grid;
     char        **repo;
+    char        **fill;
     int                 columns;
     int                 rows;
     int                 collects;
@@ -80,8 +81,8 @@ typedef struct s_map{
 } t_map;
 
 typedef struct s_position{
-    int                 x;
     int                 y;
+    int                 x;
     unsigned int        move;
 } t_position;
 
@@ -97,7 +98,7 @@ typedef struct s_game{
 } t_game;
 
 /*check function*/
-void    ft_check_argument(int ac, char **av, t_game *game);
+void    ft_check_argument(int ac, char **av);
 void    ft_check_file(char *line);
 void    ft_check_map(t_game *game, char *line, int i_rows);
 void    ft_check_wall(int y, int x, t_game *game);
@@ -109,14 +110,23 @@ void    ft_error_map(char *mess, t_game *game);
 
 /*free function*/
 void    ft_free_repo(char **repo);
-void    ft_free_grid(char **grid, int cols);
+void    ft_free_fill(char **fill, int cols);
 
 /*function for map*/
-int ft_remove_n(char *line);
+void ft_remove_n(char *line);
 void ft_map_calloc(t_game *game);
+void    ft_struct_map(char c, t_game *game, int y, int x);
 
 /*initialization*/
 void ft_init_game(t_game *game);
-void ft_init_map(char **av, t_game *game);
+void ft_init_map(t_game *game);
+void    ft_init_layer(t_game *game);
+
+/*fill function*/
+void    ft_cpymap_tofill(t_game *game);
+void ft_fill(t_game *game, char fill_char);
+void ft_flood_fill(t_game *game, int y, int x, char fill_char);
+void    ft_fill_check(t_game *game, int rows, int columns);
+
 
 #endif 

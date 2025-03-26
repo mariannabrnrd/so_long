@@ -23,10 +23,9 @@ MLX_DIR		=	./mlx
 LIBFT_PATH	=	$(LIBFT_DIR)/libft.a
 GET_PATH	=	$(GET_DIR)/get_next_line.a
 PRINT_PATH	=	$(PRINT_DIR)/libftprintf.a
-MLX_PATH	=	$(MLX_PATH)/libmlx.a
+MLX_PATH	=	$(MLX_DIR)/libmlx.a
 
-LIB_FT_PATH = $(LIBFT_DIR) $(GET_DIR) $(PRINT_DIR)
-LIB_PATH = $(GET_PATH) $(LIBFT_PATH) $(PRINT_PATH)
+LIB_DIR = $(LIBFT_DIR) $(GET_DIR) $(PRINT_DIR)
 
 # compiler e flag
 CC = cc
@@ -40,19 +39,28 @@ MLX_FLAGS = -L$(MLX_PATH) -lm -lmlx_Linux -lXext -lX11
 # inclusione delle librerie
 INCLUDES = -I ./includes -I $(MLX_PATH)
 
-SOURCES = #tutti file in c
+SOURCES = so_long.c check.c error.c fill.c free.c init.c maps.c 
 
-OBJECTS = $(SOURCES:.c=.O)
+OBJECTS = $(SOURCES:.c=.o)
 
-$(NAME): $(LIB_PATH) $(MLK) $(OBJECTS)
+$(NAME): $(LIB_PATH) $(OBJECTS)
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIB_FLAG) $(MLX_FLAG)
 	@echo "$(NAME) OK!"
 
-$(LIB_PATH):
-	@$(MAKE) --no-print-directory -C $(LIB_FT_PATH)
+$(LIB_PATH): $(GET_PATH) $(LIBFT_PATH) $(PRINT_PATH) $(MLX_PATH)
 
-$(MLX):
-	@$(MAKE) --no-print-directory -C $(MLK_PATH)
+
+$(GET_PATH):
+	@$(MAKE) --no-print-directory -C $(GET_DIR)
+
+$(LIBFT_PATH):
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
+
+$(PRINT_PATH):
+	@$(MAKE) --no-print-directory -C $(PRINT_DIR)
+
+$(MLX_PATH):
+	@$(MAKE) --no-print-directory -C $(MLX_DIR)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -63,12 +71,16 @@ all: $(NAME)
 
 clean:
 	@$(RM) $(OBJECTS)
-	@$(MAKE) --no-print-directory -C $(LIB_FT_PATH) clean
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
+	@$(MAKE) --no-print-directory -C $(PRINT_DIR) clean
+	@$(MAKE) --no-print-directory -C $(GET_DIR) clean
 	@$(MAKE) --no-print-directory -C $(MLX_PATH) clean
 
 fclean: clean
 	@$(RM) $(NAME)
-	@$(RM) $(LIB_FT_PATH)
+	@$(RM) $(LIBFT_PATH)
+	@$(RM) $(GET_PATH)
+	@$(RM) $(PRINT_PATH)
 
 re: fclean all
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_h"
+#include "so_long.h"
 
 /*data initialization*/
 void ft_init_game(t_game *game)
@@ -25,7 +25,7 @@ void ft_init_game(t_game *game)
     game->map.exits = 0;
     game->map.walls = 0;
     game->map.floor = 0;
-    game->map.grid = NULL;
+    game->map.fill = NULL;
     game->map.repo = NULL;
     game->level = 41;
     game->count = 0;
@@ -33,7 +33,7 @@ void ft_init_game(t_game *game)
 }
 
 /*map initialization*/
-void ft_init_map(char **av, t_game *game)
+void ft_init_map(t_game *game)
 {
     char        *line;
     int         i;
@@ -55,7 +55,7 @@ void ft_init_map(char **av, t_game *game)
         line = get_next_line(game->fd);
     }
     free(line);
-    close(game->fd);`
+    close(game->fd);
 }
 
 /*layer initialization*/
@@ -78,5 +78,5 @@ void    ft_init_layer(t_game *game)
     }
     ft_check_patt(game);
     ft_cpymap_tofill(game);
-    ft_flood_fill(game, game->map.fill, 'X');
+    ft_fill(game, 'X');
 }
