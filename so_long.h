@@ -149,5 +149,8 @@ void    ft_destroy_images(t_game *game);
 /*game function*/
 void    ft_run_game(t_game *game);
 int     ft_handle_input(int key, t_game *game);
+int     ft_close_game(t_game *game);
+void    ft_move_player(t_game *game, int y, int x);
+void    ft_win(t_game *game);
 
 #endif 

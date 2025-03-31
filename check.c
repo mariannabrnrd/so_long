@@ -21,7 +21,7 @@ void    ft_check_argument(int ac, char **av)
         ft_error("wrong arguments");
     }
     len = ft_strlen(av[1]);
-    if(ft_strnstr(&av[1][len - 5], ".ber", 4) == NULL)
+    if(ft_strnstr(&av[1][len - 4], ".ber", 4) == NULL)
     {
         ft_error("invalid map file.");
     }

@@ -10,45 +10,39 @@
 #                                                                              #
 # **************************************************************************** #
 
+
 # nome del file
 NAME = so_long
 
 # percorsi delle librerie
-LIBFT_DIR	=	./lib/libft/
-GET_DIR		=	./lib/get_next_line/
-PRINT_DIR	=	./lib/ft_printf/
-MLX_DIR		=	./mlx
+LIBFT_DIR	=	lib/libft/
+GET_DIR		=	lib/get_next_line/
+PRINT_DIR	=	lib/ft_printf/
+MLX_DIR		=	mlx
 
 # percorsi dei file .a
 LIBFT_PATH	=	$(LIBFT_DIR)/libft.a
-GET_PATH	=	$(GET_DIR)/get_next_line.a
+GET_PATH	=	$(GET_DIR)/libgnl.a
 PRINT_PATH	=	$(PRINT_DIR)/libftprintf.a
 MLX_PATH	=	$(MLX_DIR)/libmlx.a
-
-LIB_DIR = $(LIBFT_DIR) $(GET_DIR) $(PRINT_DIR)
 
 # compiler e flag
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFT_PATH) -I$(GNL_PATH) -I$(PRINTF_PATH) -I$(MLX_PATH) -O3
-
-# flag per le librerie
-LIB_FLAGS = -L$(LIBFT_DIR) -lft -L$(GET_DIR) -lgnl -L$(PRINT_DIR) -lftprintf
-MLX_FLAGS = -L$(MLX_PATH) -lm -lmlx_Linux -lXext -lX11
+CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR) -I$(GET_DIR) -I$(PRINT_DIR) -I$(MLX_DIR) -O3
 
 # inclusione delle librerie
-INCLUDES = -I ./includes -I $(MLX_PATH)
+INCLUDES = -I ./includes -I $(MLX_DIR)
 
 SOURCES = so_long.c check.c error.c fill.c free.c init.c maps.c img.c game.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
-$(NAME): $(LIB_PATH) $(OBJECTS)
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIB_FLAG) $(MLX_FLAG)
+all: $(NAME)
+
+$(NAME): $(LIBFT_PATH) $(GET_PATH) $(PRINT_PATH) $(MLX_PATH) $(OBJECTS)
+	@$(CC) $(CFLAGS) -o $@ $(OBJECTS) -L$(LIBFT_DIR) -lft -L$(GET_DIR) -lgnl -L$(PRINT_DIR) -lftprintf -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 	@echo "$(NAME) OK!"
-
-$(LIB_PATH): $(GET_PATH) $(LIBFT_PATH) $(PRINT_PATH) $(MLX_PATH)
-
 
 $(GET_PATH):
 	@$(MAKE) --no-print-directory -C $(GET_DIR)
@@ -67,14 +61,12 @@ $(MLX_PATH):
 
 bonus: all
 
-all: $(NAME)
-
 clean:
 	@$(RM) $(OBJECTS)
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
 	@$(MAKE) --no-print-directory -C $(PRINT_DIR) clean
 	@$(MAKE) --no-print-directory -C $(GET_DIR) clean
-	@$(MAKE) --no-print-directory -C $(MLX_PATH) clean
+	@$(MAKE) --no-print-directory -C $(MLX_DIR) clean
 
 fclean: clean
 	@$(RM) $(NAME)
@@ -85,4 +77,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all re clean fclean bonus
-
