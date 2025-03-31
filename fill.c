@@ -40,7 +40,7 @@ void ft_fill(t_game *game, char fill_char)
 {
     ft_flood_fill(game, game->position.y, game->position.x, fill_char);
     ft_fill_check(game, game->map.rows, game->map.columns);
-    ft_printf("all right, the map is playable");
+    ft_printf("all right, the map is playable\n");
 }
 
 /*loop for flood fill*/

@@ -40,8 +40,8 @@ void    ft_check_map(t_game *game, char *line, int i_rows)
 {
     int len;
 
-    len = ft_strlen(line);
     ft_remove_n(line);
+    len = ft_strlen(line);
     if (len >= MAP_COLS)
         ft_error_map("map filr too long", game);
     if (i_rows == 0)

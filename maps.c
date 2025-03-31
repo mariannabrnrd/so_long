@@ -27,6 +27,7 @@ void ft_remove_n(char *line)
 }
 
 /*creation the map using rows*/
+
 void ft_map_calloc(t_game *game)
 {
     if (!game->map.repo)
@@ -71,6 +72,7 @@ void    ft_create_map(t_game *game)
         x = 0;
         while (x < game->map.rows)
         {
+            mlx_put_image_to_window(game->process, game->window, game->floor.img[0], x * IMG_B, y * IMG_H);
             ft_put_tile(game, game->map.repo[y][x], x, y);
             x++;
         }
@@ -81,7 +83,6 @@ void    ft_create_map(t_game *game)
 /* adds tiles based on the character found */
 void    ft_put_tile(t_game *game, char tile, int x, int y)
 {
-    mlx_put_image_to_window(game->process, game->window, game->floor.img, x * IMG_B, y * IMG_H);
     if (tile == '1')
         mlx_put_image_to_window(game->process, game->window, game->wall.img, x * IMG_B, y * IMG_H);
     else if (tile == 'P')

@@ -49,7 +49,9 @@ void ft_init_map(t_game *game)
         if (game->map.repo == NULL)
             ft_map_calloc(game);
         ft_check_map(game, line, i);
-        ft_strlcpy(game->map.repo[i], line, game->map.rows + 1);
+        //ft_strlcpy(game->map.repo[i], line, game->map.rows + 1);
+        game->map.repo[i] = ft_strdup(line);
+        ft_printf("stringa: %s\n",game->map.repo[i]);
         i++;
         game->map.columns = i;
         free(line);

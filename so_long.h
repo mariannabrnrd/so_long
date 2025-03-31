@@ -67,7 +67,7 @@
 
 /*struct*/
 typedef struct s_game_img{
-    void    *img;
+    void    *img[2];
     int     b;
     int     h;
 } t_game_img;
