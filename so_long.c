@@ -23,5 +23,7 @@ int main(int ac, char **av)
     ft_init_game(&game);
     ft_init_map(&game);
     ft_init_layer(&game);
-    init_mlx(&game);
+    ft_init_mlx(&game);
+    ft_create_map(&game);
+    ft_run_game(&game);
 }

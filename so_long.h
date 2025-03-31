@@ -20,7 +20,7 @@
 
 /*mlx library*/
 # include "mlx/mlx.h"
-# include "mlx/mlx_int.h"
+//# include "mlx/mlx_int.h"
 
 /*library*/
 # include <unistd.h>
@@ -33,12 +33,12 @@
 # include <X11/keysym.h>
 
 /*game path*/
-# define MIKU_U "./assets/miku.png"
-# define COLLECT "./assets/collezionabile.png"
-# define EXIT_CLOSE "./assets/exit_close.png"
-# define EXIT_OPEN "./assets/exit_open.png"
-# define FLOOR "./assets/prato.png"
-# define WALL "./assets/nuvole.png"
+# define MIKU_U "./assets/miku.xpm"
+# define COLLECT "./assets/collezionabile.xpm"
+# define EXIT_CLOSE "./assets/exit_close.xpm"
+# define EXIT_OPEN "./assets/exit_open.xpm"
+# define FLOOR "./assets/prato.xpm"
+# define WALL "./assets/nuvole.xpm"
 
 /*define*/
 # define MAP_B 3200
@@ -48,6 +48,12 @@
 
 # define MAP_ROWS (MAP_H / IMG_H)
 # define MAP_COLS (MAP_B / IMG_B)
+
+# define ESC    65307
+# define UP     119   //W
+# define DOWN   115   //S
+# define LEFT   97    //A
+# define RIGHT  100   //D
 
 /*pattern*/
 # define PATT_MAP           "01EPC"
@@ -60,13 +66,11 @@
 # define PATT_PLAYER        80 //ascii di p
 
 /*struct*/
-/*typedef struct s_img{
-    mlx_image_t     *floor[2];
-    mlx_image_t     *wall;
-    t_multi         exit[2];
-    t_multi         player;
-    t_multi         collect[1000];
-} t_img;*/
+typedef struct s_game_img{
+    void    *img;
+    int     b;
+    int     h;
+} t_game_img;
 
 typedef struct s_map{
     char        **repo;
@@ -87,14 +91,20 @@ typedef struct s_position{
 } t_position;
 
 typedef struct s_game{
-    //mlx_t           *mlx;
-    t_img           img;
     t_map           map;
     t_position      position;
-    int                 fd;
-    int                 level;
-    int                 count;
-    int                 finish_game;
+    t_game_img      player;
+    t_game_img      floor;
+    t_game_img      wall;
+    t_game_img      exit_c;
+    t_game_img      exit_o;
+    t_game_img      collectible;
+    void            *process;
+    void            *window;
+    int             fd;
+    int             level;
+    int             count;
+    int             finish_game;
 } t_game;
 
 /*check function*/
@@ -116,11 +126,15 @@ void    ft_free_fill(char **fill, int cols);
 void ft_remove_n(char *line);
 void ft_map_calloc(t_game *game);
 void    ft_struct_map(char c, t_game *game, int y, int x);
+void    ft_create_map(t_game *game);
+void    ft_put_tile(t_game *game, char tile, int x, int y);
 
 /*initialization*/
 void ft_init_game(t_game *game);
 void ft_init_map(t_game *game);
 void    ft_init_layer(t_game *game);
+void    ft_init_mlx(t_game *game);
+void    ft_init_img(t_game *game);
 
 /*fill function*/
 void    ft_cpymap_tofill(t_game *game);
@@ -128,5 +142,12 @@ void ft_fill(t_game *game, char fill_char);
 void ft_flood_fill(t_game *game, int y, int x, char fill_char);
 void    ft_fill_check(t_game *game, int rows, int columns);
 
+/*img function*/
+void    ft_safe_load(t_game *game, t_game_img *img, char *path);
+void    ft_destroy_images(t_game *game);
+
+/*game function*/
+void    ft_run_game(t_game *game);
+int     ft_handle_input(int key, t_game *game);
 
 #endif 

@@ -58,3 +58,41 @@ void    ft_struct_map(char c, t_game *game, int y, int x)
     }   
 }
 
+/* draw the map on the game window */
+void    ft_create_map(t_game *game)
+{
+    int     x;
+    int     y;
+
+    x = 0;
+    y = 0;
+    while (y < game->map.columns)
+    {
+        x = 0;
+        while (x < game->map.rows)
+        {
+            ft_put_tile(game, game->map.repo[y][x], x, y);
+            x++;
+        }
+        y++;
+    }
+}
+
+/* adds tiles based on the character found */
+void    ft_put_tile(t_game *game, char tile, int x, int y)
+{
+    mlx_put_image_to_window(game->process, game->window, game->floor.img, x * IMG_B, y * IMG_H);
+    if (tile == '1')
+        mlx_put_image_to_window(game->process, game->window, game->wall.img, x * IMG_B, y * IMG_H);
+    else if (tile == 'P')
+        mlx_put_image_to_window(game->process, game->window, game->player.img, x * IMG_B, y * IMG_H);
+    else if (tile == 'C')
+        mlx_put_image_to_window(game->process, game->window, game->collectible.img, x * IMG_B, y * IMG_H);
+    else if (tile == 'E')
+    {
+        if (game->map.collects == 0)
+            mlx_put_image_to_window(game->process, game->window, game->exit_o.img, x * IMG_B, y * IMG_H);
+        else
+            mlx_put_image_to_window(game->process, game->window, game->exit_c.img, x * IMG_B, y * IMG_H);
+    }
+}

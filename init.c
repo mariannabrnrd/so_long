@@ -33,6 +33,7 @@ void ft_init_game(t_game *game)
 }
 
 /*map initialization*/
+/*rows and columns are inverted*/
 void ft_init_map(t_game *game)
 {
     char        *line;
@@ -79,4 +80,27 @@ void    ft_init_layer(t_game *game)
     ft_check_patt(game);
     ft_cpymap_tofill(game);
     ft_fill(game, 'X');
+}
+
+/*library mlx initialization*/
+void    ft_init_mlx(t_game *game)
+{
+    game->process = mlx_init();
+    if (!game->process)
+        ft_error_map("failed to initialize MLX", game);
+    ft_init_img(game);
+    game->window = mlx_new_window(game->process, game->map.columns * IMG_B, game->map.rows * IMG_H, "so_long");
+    if (!game->window)
+        ft_error_map("window not initialization", game);
+}
+
+/*img initialization*/
+void    ft_init_img(t_game *game)
+{
+    ft_safe_load(game, &game->player, MIKU_U);
+    ft_safe_load(game, &game->collectible, COLLECT);
+    ft_safe_load(game, &game->exit_c, EXIT_CLOSE);
+    ft_safe_load(game, &game->exit_o, EXIT_OPEN);
+    ft_safe_load(game, &game->floor, FLOOR);
+    ft_safe_load(game, &game->wall, WALL);
 }

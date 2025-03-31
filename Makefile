@@ -39,7 +39,7 @@ MLX_FLAGS = -L$(MLX_PATH) -lm -lmlx_Linux -lXext -lX11
 # inclusione delle librerie
 INCLUDES = -I ./includes -I $(MLX_PATH)
 
-SOURCES = so_long.c check.c error.c fill.c free.c init.c maps.c 
+SOURCES = so_long.c check.c error.c fill.c free.c init.c maps.c img.c game.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
