@@ -23,8 +23,6 @@ void    ft_error(char *mess)
 void    ft_error_map(char *mess, t_game *game)
 {
     ft_free_repo(game->map.repo);
-    if (game->map.fill)
-        ft_free_fill(game->map.fill, game->map.columns);
     ft_error(mess);
     exit(1);
 }

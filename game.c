@@ -15,9 +15,16 @@
 /* using the functions from the mlx library */
 void    ft_run_game(t_game *game)
 {
-    mlx_loop(game->process);
+    //ft_printf("inizio\n");
+    
     mlx_key_hook(game->window, ft_handle_input, game);
+    //ft_printf("input\n");
     mlx_hook(game->window, 17, 0, ft_close_game, game);
+    //ft_printf("exit\n");
+    
+    mlx_loop(game->process);
+    //ft_printf("process\n");
+
 }
 
 /* function for key input */
@@ -66,16 +73,22 @@ void    ft_move_player(t_game *game, int y, int x)
     }
     if (game->map.repo[new_y][new_x] == 'E' && game->map.collects == 0)
         ft_win(game);
+    if (game->map.repo[new_y][new_x] == 'E' && game->map.collects > 0)
+        return;
     game->map.repo[game->position.y][game->position.x] = '0';
+    game->map.repo[new_y][new_x] = 'P';
     game->position.y = new_y;
     game->position.x = new_x;
+    game->position.move++;
+    //ft_printf("mossa: %u\n", game->position.move);
     ft_create_map(game);
 }
 
 /*if u win*/
 void    ft_win(t_game *game)
 {
-    ft_printf("Congratulation!! U WIN ");
+    ft_printf("Congratulation!! U WIN \n");
+    ft_printf("mosse totali: %u\n", game->position.move);
     ft_close_game(game);
 }
 

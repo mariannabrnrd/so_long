@@ -72,7 +72,7 @@ void    ft_create_map(t_game *game)
         x = 0;
         while (x < game->map.rows)
         {
-            mlx_put_image_to_window(game->process, game->window, game->floor.img[0], x * IMG_B, y * IMG_H);
+            mlx_put_image_to_window(game->process, game->window, game->floor.img, x * IMG_B, y * IMG_H);
             ft_put_tile(game, game->map.repo[y][x], x, y);
             x++;
         }

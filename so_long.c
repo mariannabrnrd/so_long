@@ -26,7 +26,5 @@ int main(int ac, char **av)
     ft_init_mlx(&game);
     ft_create_map(&game);
     ft_run_game(&game);
-    ft_printf("funzionaaaa\n");
-
     return (0);
 }

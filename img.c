@@ -13,10 +13,10 @@
 #include "so_long.h"
 
 /*safely loading the photos (and verifying)*/
-void    ft_safe_load(t_game *game, t_game_img *img, char *path)
+void    ft_safe_load(t_game *game, t_game_img *tile, char *path)
 {
-    img->img = mlx_xpm_file_to_image(game->process, path, &img->b, &img->h);
-    if (!img->img)
+    tile->img = mlx_xpm_file_to_image(game->process, path, &tile->b, &tile->h);
+    if (!tile->img)
     {
         ft_printf("Error\nFailed to load images: %s\n", path);
         ft_destroy_images(game);
